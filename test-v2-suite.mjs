@@ -7,6 +7,7 @@ import {
 } from './src/utils/formatters.ts';
 import { translations, t, getCategoryTranslation, getStatusTranslation } from './src/utils/translations.ts';
 import { initialTransactions } from './src/data.ts';
+import { STEP_SPOKEN_GUIDANCE } from './src/utils/deviceSensors.ts';
 
 console.log('====================================================');
 console.log('  UPI PROTOTYPE V2: COMPREHENSIVE AUTOMATED TEST SUITE');
@@ -226,6 +227,29 @@ function onScreenNavigate(newScreen) {
 isBalanceHidden = false; // user viewed balance
 onScreenNavigate('pay');
 assert(isBalanceHidden === true, 'Balance automatically re-hides upon navigating away from home');
+
+// ---------------------------------------------------------
+console.log('\n--- 7. Testing Senior Step-by-Step Predictive Guidance & Spoken Audio ---');
+const requiredSteps = ['recipient', 'pay', 'review', 'pin'];
+const requiredLangs = ['en', 'hi', 'kn', 'ta'];
+
+for (const step of requiredSteps) {
+  assert(Boolean(STEP_SPOKEN_GUIDANCE[step]), `Spoken guidance exists for step '${step}'`);
+  for (const lang of requiredLangs) {
+    const script = STEP_SPOKEN_GUIDANCE[step]?.[lang];
+    assert(Boolean(script && script.length > 20), `Spoken script exists and is detailed for step '${step}' in '${lang}'`);
+  }
+}
+
+assert(translations.en.whatHappensNext === 'What Happens Next?', 'English whatHappensNext header is defined');
+assert(translations.hi.whatHappensNext === 'अगला कदम क्या होगा?', 'Hindi whatHappensNext header is defined');
+assert(translations.kn.whatHappensNext === 'ಮುಂದಿನ ಹಂತವೇನು?', 'Kannada whatHappensNext header is defined');
+assert(translations.ta.whatHappensNext === 'அடுத்த படி என்ன?', 'Tamil whatHappensNext header is defined');
+
+assert(translations.en.noDeductionGuarantee.includes('No money is deducted'), 'English guarantee explicitly promises zero deduction');
+assert(translations.hi.noDeductionGuarantee.includes('कोई पैसा नहीं'), 'Hindi guarantee explicitly promises zero deduction');
+assert(translations.kn.noDeductionGuarantee.includes('ಯಾವುದೇ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ'), 'Kannada guarantee explicitly promises zero deduction');
+assert(translations.ta.noDeductionGuarantee.includes('பணம் எதுவும் கழிக்கப்படாது'), 'Tamil guarantee explicitly promises zero deduction');
 
 console.log('\n====================================================');
 console.log(`TEST SUMMARY: ${passed} passed, ${failed} failed.`);

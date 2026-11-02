@@ -19,6 +19,7 @@ import { numberToWords } from '../utils/formatters';
 import { t } from '../utils/translations';
 import { sound } from '../utils/sound';
 import HighAmountWarningModal from '../components/HighAmountWarningModal';
+import StepGuidanceCard from '../components/StepGuidanceCard';
 
 interface ReviewScreenProps {
   navigate: (screen: Screen) => void;
@@ -30,6 +31,8 @@ interface ReviewScreenProps {
   lang: SupportedLanguage;
   highAmountThreshold: number;
   transactions: Transaction[];
+  autoNarrate?: boolean;
+  onToggleAutoNarrate?: (enabled: boolean) => void;
   onProceedToPin: () => void;
 }
 
@@ -53,6 +56,8 @@ export default function ReviewScreen({
   lang,
   highAmountThreshold,
   transactions,
+  autoNarrate,
+  onToggleAutoNarrate,
   onProceedToPin,
 }: ReviewScreenProps) {
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
@@ -113,6 +118,15 @@ export default function ReviewScreen({
       </div>
 
       <div className="p-5 flex-1 overflow-y-auto space-y-4">
+        {/* Step 3 of 4 Senior Guidance & What Happens Next */}
+        <StepGuidanceCard
+          stepNumber={3}
+          stepId="review"
+          lang={lang}
+          autoNarrate={autoNarrate}
+          onToggleAutoNarrate={onToggleAutoNarrate}
+        />
+
         {/* Trust Mode Reassurance Banner */}
         <div className="bg-blue-50 border-2 border-blue-200 rounded-3xl p-4 flex items-start gap-3 shadow-xs">
           <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 text-blue-700 mt-0.5">

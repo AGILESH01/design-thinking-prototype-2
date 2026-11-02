@@ -70,4 +70,5 @@ export interface AppConfig {
   highAmountThreshold: number; // Default: ₹3,000
   maxTransactionLimit: number; // Default: ₹5,000
   soundEnabled: boolean;
+  voiceGuidanceEnabled: boolean; // Verbal spoken guidance for every step
 }

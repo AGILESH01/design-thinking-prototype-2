@@ -39,12 +39,29 @@ export default function App() {
   const [isBalanceVisible, setIsBalanceVisible] = useState(false);
   const [balance, setBalance] = useState(2560);
 
-  // App Configurations (Configurable Limits & Audio Preference)
-  const [config, setConfig] = useState<AppConfig>({
-    highAmountThreshold: DEFAULT_HIGH_AMOUNT_THRESHOLD,
-    maxTransactionLimit: DEFAULT_MAX_TRANSACTION_LIMIT,
-    soundEnabled: true,
+  // App Configurations (Configurable Limits, Sound & Voice Guidance Preference)
+  const [config, setConfig] = useState<AppConfig>(() => {
+    let voiceEnabled = true;
+    if (typeof window !== 'undefined') {
+      const savedVoice = localStorage.getItem('upi_proto_voice_guidance');
+      if (savedVoice !== null) {
+        voiceEnabled = savedVoice === 'true';
+      }
+    }
+    return {
+      highAmountThreshold: DEFAULT_HIGH_AMOUNT_THRESHOLD,
+      maxTransactionLimit: DEFAULT_MAX_TRANSACTION_LIMIT,
+      soundEnabled: true,
+      voiceGuidanceEnabled: voiceEnabled,
+    };
   });
+
+  const handleToggleVoiceGuidance = (enabled: boolean) => {
+    setConfig((prev) => ({ ...prev, voiceGuidanceEnabled: enabled }));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('upi_proto_voice_guidance', String(enabled));
+    }
+  };
 
   // All Transactions (Synchronized with History & Monthly Infographics)
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
@@ -178,6 +195,8 @@ export default function App() {
               setIsBalanceVisible={setIsBalanceVisible}
               soundEnabled={config.soundEnabled}
               setSoundEnabled={(enabled) => setConfig((prev) => ({ ...prev, soundEnabled: enabled }))}
+              voiceGuidanceEnabled={config.voiceGuidanceEnabled}
+              setVoiceGuidanceEnabled={handleToggleVoiceGuidance}
             />
           )}
 
@@ -186,6 +205,8 @@ export default function App() {
               navigate={navigate}
               onSelect={handleSelectContact}
               lang={lang}
+              autoNarrate={config.voiceGuidanceEnabled}
+              onToggleAutoNarrate={handleToggleVoiceGuidance}
             />
           )}
 
@@ -199,6 +220,8 @@ export default function App() {
               initialAmount={draftAmount.toString()}
               initialMessage={draftMessage}
               initialMethod={draftMethod}
+              autoNarrate={config.voiceGuidanceEnabled}
+              onToggleAutoNarrate={handleToggleVoiceGuidance}
               onProceedToReview={handleProceedToReview}
             />
           )}
@@ -214,6 +237,8 @@ export default function App() {
               lang={lang}
               highAmountThreshold={config.highAmountThreshold}
               transactions={transactions}
+              autoNarrate={config.voiceGuidanceEnabled}
+              onToggleAutoNarrate={handleToggleVoiceGuidance}
               onProceedToPin={handleProceedToPin}
             />
           )}
@@ -226,6 +251,8 @@ export default function App() {
               message={draftMessage}
               method={draftMethod}
               lang={lang}
+              autoNarrate={config.voiceGuidanceEnabled}
+              onToggleAutoNarrate={handleToggleVoiceGuidance}
               onAuthorize={handleAuthorizeSuccess}
             />
           )}

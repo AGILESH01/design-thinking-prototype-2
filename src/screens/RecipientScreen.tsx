@@ -6,14 +6,23 @@ import { t } from '../utils/translations';
 import { sound } from '../utils/sound';
 import { triggerHaptic } from '../utils/deviceSensors';
 import CameraSensorModal from '../components/CameraSensorModal';
+import StepGuidanceCard from '../components/StepGuidanceCard';
 
 interface RecipientScreenProps {
   navigate: (screen: Screen) => void;
   onSelect: (contact: Contact) => void;
   lang: SupportedLanguage;
+  autoNarrate?: boolean;
+  onToggleAutoNarrate?: (enabled: boolean) => void;
 }
 
-export default function RecipientScreen({ navigate, onSelect, lang }: RecipientScreenProps) {
+export default function RecipientScreen({ 
+  navigate, 
+  onSelect, 
+  lang,
+  autoNarrate,
+  onToggleAutoNarrate,
+}: RecipientScreenProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCameraScannerOpen, setIsCameraScannerOpen] = useState(false);
 
@@ -51,6 +60,15 @@ export default function RecipientScreen({ navigate, onSelect, lang }: RecipientS
       </div>
 
       <div className="p-5 flex-1 overflow-y-auto">
+        {/* Step 1 of 4 Senior Guidance & What Happens Next */}
+        <StepGuidanceCard
+          stepNumber={1}
+          stepId="recipient"
+          lang={lang}
+          autoNarrate={autoNarrate}
+          onToggleAutoNarrate={onToggleAutoNarrate}
+        />
+
         {/* Search */}
         <div className="relative mb-4">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={22} />

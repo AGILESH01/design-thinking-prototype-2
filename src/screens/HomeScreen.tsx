@@ -17,12 +17,14 @@ import {
   Languages, 
   Volume2, 
   VolumeX, 
-  Lock 
+  Lock,
+  Mic
 } from 'lucide-react';
 import type { Screen, Contact, SupportedLanguage, Transaction } from '../types';
 import { mockContacts } from '../data';
 import { t } from '../utils/translations';
 import { sound } from '../utils/sound';
+import { triggerHaptic } from '../utils/deviceSensors';
 import BiometricBalanceModal from '../components/BiometricBalanceModal';
 
 interface HomeScreenProps {
@@ -35,6 +37,8 @@ interface HomeScreenProps {
   setIsBalanceVisible: (visible: boolean) => void;
   soundEnabled: boolean;
   setSoundEnabled: (enabled: boolean) => void;
+  voiceGuidanceEnabled?: boolean;
+  setVoiceGuidanceEnabled?: (enabled: boolean) => void;
 }
 
 export default function HomeScreen({
@@ -47,6 +51,8 @@ export default function HomeScreen({
   setIsBalanceVisible,
   soundEnabled,
   setSoundEnabled,
+  voiceGuidanceEnabled = true,
+  setVoiceGuidanceEnabled,
 }: HomeScreenProps) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -125,8 +131,28 @@ export default function HomeScreen({
             </div>
           </button>
 
-          {/* Quick Header Controls: Language & Sound */}
+          {/* Quick Header Controls: Language, Sound & Voice Guidance */}
           <div className="flex items-center gap-2">
+            {setVoiceGuidanceEnabled && (
+              <button
+                onClick={() => {
+                  triggerHaptic(20);
+                  const next = !voiceGuidanceEnabled;
+                  setVoiceGuidanceEnabled(next);
+                  if (next) sound.playKeyClick();
+                }}
+                className={`p-2.5 rounded-full border transition-all flex items-center gap-1 ${
+                  voiceGuidanceEnabled
+                    ? 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 shadow-2xs'
+                    : 'bg-gray-100 text-gray-400 border-gray-200'
+                }`}
+                title={voiceGuidanceEnabled ? 'Voice Guidance Active' : 'Voice Guidance Muted'}
+                aria-label="Toggle Voice Guidance"
+              >
+                <Mic size={18} />
+              </button>
+            )}
+
             <button
               onClick={toggleSound}
               className={`p-2.5 rounded-full border transition-colors ${

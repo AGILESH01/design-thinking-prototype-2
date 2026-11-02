@@ -17,6 +17,7 @@ import type { Screen, Contact, SupportedLanguage } from '../types';
 import { MIN_TRANSACTION_LIMIT, numberToWords } from '../utils/formatters';
 import { t } from '../utils/translations';
 import { sound } from '../utils/sound';
+import StepGuidanceCard from '../components/StepGuidanceCard';
 
 interface PayScreenProps {
   navigate: (screen: Screen) => void;
@@ -27,6 +28,8 @@ interface PayScreenProps {
   initialAmount?: string;
   initialMessage?: string;
   initialMethod?: string;
+  autoNarrate?: boolean;
+  onToggleAutoNarrate?: (enabled: boolean) => void;
   onProceedToReview: (amount: number, message: string, method: string) => void;
 }
 
@@ -49,6 +52,8 @@ export default function PayScreen({
   initialAmount = '500',
   initialMessage = 'For family support',
   initialMethod = 'upi',
+  autoNarrate,
+  onToggleAutoNarrate,
   onProceedToReview,
 }: PayScreenProps) {
   const [amount, setAmount] = useState(initialAmount);
@@ -105,6 +110,15 @@ export default function PayScreen({
       </div>
 
       <div className="p-5 flex-1 overflow-y-auto space-y-4">
+        {/* Step 2 of 4 Senior Guidance & What Happens Next */}
+        <StepGuidanceCard
+          stepNumber={2}
+          stepId="pay"
+          lang={lang}
+          autoNarrate={autoNarrate}
+          onToggleAutoNarrate={onToggleAutoNarrate}
+        />
+
         {/* Recipient Card */}
         <div className="flex items-center justify-between bg-white border-2 border-gray-200 rounded-3xl p-4 shadow-sm">
           <div className="flex items-center gap-3.5 flex-1 min-w-0">

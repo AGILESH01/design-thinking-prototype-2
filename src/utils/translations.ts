@@ -240,6 +240,29 @@ export interface TranslationDictionary {
   chooseLanguageTitle: string;
   chooseLanguageSubtitle: string;
   saveLanguage: string;
+
+  // Step-by-Step Guidance & Voice Narration
+  stepOfTotal: string;
+  whatHappensNext: string;
+  noDeductionGuarantee: string;
+  pinDeductionGuarantee: string;
+  listenGuidance: string;
+  stopGuidance: string;
+  speakingNow: string;
+  autoNarrateToggle: string;
+  autoNarrateDesc: string;
+  step1Title: string;
+  step1Desc: string;
+  step1Next: string;
+  step2Title: string;
+  step2Desc: string;
+  step2Next: string;
+  step3Title: string;
+  step3Desc: string;
+  step3Next: string;
+  step4Title: string;
+  step4Desc: string;
+  step4Next: string;
 }
 
 export const translations: Record<SupportedLanguage, TranslationDictionary> = {
@@ -452,6 +475,29 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     chooseLanguageTitle: 'Choose Your Language',
     chooseLanguageSubtitle: 'Select the language you feel most comfortable reading.',
     saveLanguage: 'Apply Language',
+
+    // Step-by-Step Guidance & Voice Narration
+    stepOfTotal: 'Step {current} of {total}',
+    whatHappensNext: 'What Happens Next?',
+    noDeductionGuarantee: 'No money is deducted at this step. You can safely go back or cancel.',
+    pinDeductionGuarantee: 'Money is transferred only after you enter your 4-digit PIN.',
+    listenGuidance: 'Listen to Voice Guidance',
+    stopGuidance: 'Stop Voice Guidance',
+    speakingNow: 'Speaking explanation...',
+    autoNarrateToggle: 'Read steps aloud automatically',
+    autoNarrateDesc: 'Speaks instructions and next steps whenever you open a screen',
+    step1Title: 'Choose Recipient',
+    step1Desc: 'Pick a contact or scan a QR code using device camera.',
+    step1Next: 'Next: You will enter the amount. No money deducted yet.',
+    step2Title: 'Enter Amount',
+    step2Desc: 'Type the rupees you wish to send or choose a quick amount.',
+    step2Next: 'Next: You will review recipient details and safety checks.',
+    step3Title: 'Review Payment',
+    step3Desc: 'Check the recipient name, amount in words, and balance.',
+    step3Next: 'Next: You will enter your 4-digit secret UPI PIN.',
+    step4Title: 'Enter Secret PIN',
+    step4Desc: 'Enter your 4-digit secret UPI PIN on the secure numeric keypad.',
+    step4Next: 'Next: Bank authorizes payment and shows official receipt with audio chime.',
   },
 
   hi: {
@@ -663,6 +709,29 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     chooseLanguageTitle: 'अपनी भाषा चुनें',
     chooseLanguageSubtitle: 'वह भाषा चुनें जिसमें आप सबसे सहज महसूस करते हैं।',
     saveLanguage: 'भाषा लागू करें',
+
+    // Step-by-Step Guidance & Voice Narration
+    stepOfTotal: 'कदम {current} का {total}',
+    whatHappensNext: 'अगला कदम क्या होगा?',
+    noDeductionGuarantee: 'इस कदम पर कोई पैसा नहीं काटा जाता। आप सुरक्षित रूप से वापस जा सकते हैं।',
+    pinDeductionGuarantee: 'पैसे केवल 4 अंकों का गुप्त पिन दर्ज करने के बाद ही ट्रांसफर होते हैं।',
+    listenGuidance: 'आवाज में मार्गदर्शन सुनें',
+    stopGuidance: 'आवाज रोकें',
+    speakingNow: 'विवरण बोल रहे हैं...',
+    autoNarrateToggle: 'स्क्रीन खुलते ही बोलकर समझाएं',
+    autoNarrateDesc: 'हर कदम पर अगला क्या होगा, आवाज में अपने आप बताता है',
+    step1Title: 'प्राप्तकर्ता चुनें',
+    step1Desc: 'अपनी सूची से संपर्क चुनें या कैमरे से क्यूआर कोड स्कैन करें।',
+    step1Next: 'आगे: आप राशि दर्ज करेंगे। अभी कोई पैसा नहीं कटेगा।',
+    step2Title: 'राशि दर्ज करें',
+    step2Desc: 'जितने रुपये आप भेजना चाहते हैं, वह राशि दर्ज करें।',
+    step2Next: 'आगे: आप प्राप्तकर्ता के नाम और सुरक्षा विवरण की समीक्षा करेंगे।',
+    step3Title: 'भुगतान की समीक्षा करें',
+    step3Desc: 'प्राप्तकर्ता का नाम, शब्दों में राशि और शेष राशि ध्यान से देखें।',
+    step3Next: 'आगे: आप अपना 4 अंकों का गुप्त यूपीआई पिन दर्ज करेंगे।',
+    step4Title: 'गुप्त यूपीआई पिन दर्ज करें',
+    step4Desc: 'सुरक्षित कीपैड पर अपना 4 अंकों का गुप्त पिन दर्ज करें।',
+    step4Next: 'आगे: बैंक भुगतान को पूरा करेगा और ध्वनि के साथ रसीद दिखाएगा।',
   },
 
   kn: {
@@ -874,6 +943,29 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     chooseLanguageTitle: 'ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ',
     chooseLanguageSubtitle: 'ನಿಮಗೆ ಓದಲು ಅತ್ಯಂತ ಸುಲಭವಾದ ಭಾಷೆಯನ್ನು ಆರಿಸಿಕೊಳ್ಳಿ.',
     saveLanguage: 'ಭಾಷೆ ಅನ್ವಯಿಸಿ',
+
+    // Step-by-Step Guidance & Voice Narration
+    stepOfTotal: 'ಹಂತ {current} ರ {total}',
+    whatHappensNext: 'ಮುಂದಿನ ಹಂತವೇನು?',
+    noDeductionGuarantee: 'ಈ ಹಂತದಲ್ಲಿ ಯಾವುದೇ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ. ನೀವು ಸುರಕ್ಷಿತವಾಗಿ ಹಿಂತಿರುಗಬಹುದು.',
+    pinDeductionGuarantee: 'ನಿಮ್ಮ 4-ಅಂಕಿಯ ರಹಸ್ಯ ಪಿನ್ ನಮೂದಿಸಿದ ನಂತರವೇ ಹಣ ವರ್ಗಾವಣೆಯಾಗುತ್ತದೆ.',
+    listenGuidance: 'ಧ್ವನಿ ಮಾರ್ಗದರ್ಶನ ಆಲಿಸಿ',
+    stopGuidance: 'ಧ್ವನಿ ನಿಲ್ಲಿಸಿ',
+    speakingNow: 'ವಿವರಣೆಯನ್ನು ಹೇಳಲಾಗುತ್ತಿದೆ...',
+    autoNarrateToggle: 'ಪರದೆಯನ್ನು ತೆರೆದಾಗ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಓದಿ',
+    autoNarrateDesc: 'ಪ್ರತಿ ಹಂತದಲ್ಲೂ ಏನು ಮಾಡಬೇಕು ಮತ್ತು ಮುಂದೇನು ಎಂಬುದನ್ನು ಧ್ವನಿಯಲ್ಲಿ ತಿಳಿಸುತ್ತದೆ',
+    step1Title: 'ಸ್ವೀಕರಿಸುವವರನ್ನು ಆಯ್ಕೆಮಾಡಿ',
+    step1Desc: 'ಸಂಪರ್ಕವನ್ನು ಆರಿಸಿ ಅಥವಾ ಕ್ಯಾಮೆರಾದಿಂದ ಕ್ಯೂಆರ್ ಕೋಡ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.',
+    step1Next: 'ಮುಂದೆ: ನೀವು ಮೊತ್ತವನ್ನು ನಮೂದಿಸುವಿರಿ. ಇನ್ನೂ ಯಾವುದೇ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ.',
+    step2Title: 'ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ',
+    step2Desc: 'ನೀವು ಕಳುಹಿಸಲು ಬಯಸುವ ರೂಪಾಯಿ ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ.',
+    step2Next: 'ಮುಂದೆ: ನೀವು ಸ್ವೀಕರಿಸುವವರ ವಿವರಗಳು ಮತ್ತು ಸುರಕ್ಷತೆಯನ್ನು ಪರಿಶೀಲಿಸುವಿರಿ.',
+    step3Title: 'ಪಾವತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ',
+    step3Desc: 'ಸ್ವೀಕರಿಸುವವರ ಹೆಸರು, ಪದಗಳಲ್ಲಿನ ಮೊತ್ತ ಮತ್ತು ಉಳಿದ ಬ್ಯಾಲೆನ್ಸ್ ಪರಿಶೀಲಿಸಿ.',
+    step3Next: 'ಮುಂದೆ: ನೀವು ನಿಮ್ಮ 4-ಅಂಕಿಯ ರಹಸ್ಯ ಯುಪಿಐ ಪಿನ್ ನಮೂದಿಸುವಿರಿ.',
+    step4Title: 'ರಹಸ್ಯ ಯುಪಿಐ ಪಿನ್ ನಮೂದಿಸಿ',
+    step4Desc: 'ಸುರಕ್ಷಿತ ಕೀಪ್ಯಾಡ್‌ನಲ್ಲಿ ನಿಮ್ಮ 4-ಅಂಕಿಯ ರಹಸ್ಯ ಪಿನ್ ನಮೂದಿಸಿ.',
+    step4Next: 'ಮುಂದೆ: ಬ್ಯಾಂಕ್ ಪಾವತಿಯನ್ನು ಪೂರ್ಣಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ಧ್ವನಿ ಸಹಿತ ರಶೀದಿಯನ್ನು ತೋರಿಸುತ್ತದೆ.',
   },
 
   ta: {
@@ -1085,6 +1177,29 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     chooseLanguageTitle: 'உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்',
     chooseLanguageSubtitle: 'நீங்கள் வாசிக்க எளிதாக உணரும் மொழியைத் தேர்ந்தெடுக்கவும்.',
     saveLanguage: 'மொழியைப் பயன்படுத்து',
+
+    // Step-by-Step Guidance & Voice Narration
+    stepOfTotal: 'படி {current} இன் {total}',
+    whatHappensNext: 'அடுத்த படி என்ன?',
+    noDeductionGuarantee: 'இந்த படியில் பணம் எதுவும் கழிக்கப்படாது. நீங்கள் எப்போது வேண்டுமானாலும் பாதுகாப்பாக ரத்து செய்யலாம்.',
+    pinDeductionGuarantee: 'உங்கள் 4 இலக்க ரகசிய பின்னை உள்ளிட்ட பின்னரே பணம் மாற்றப்படும்.',
+    listenGuidance: 'குரல் வழிகாட்டலைக் கேளுங்கள்',
+    stopGuidance: 'குரலை நிறுத்து',
+    speakingNow: 'விளக்கம் பேசப்படுகிறது...',
+    autoNarrateToggle: 'திரை திறந்ததும் தானாக பேசவும்',
+    autoNarrateDesc: 'ஒவ்வொரு படியிலும் அடுத்தது என்ன என்பதை குரலில் விளக்குகிறது',
+    step1Title: 'பெறுநரைத் தேர்ந்தெடுக்கவும்',
+    step1Desc: 'தொடர்பைத் தேர்ந்தெடுக்கவும் அல்லது கேமரா மூலம் QR குறியீட்டை ஸ்கேன் செய்யவும்.',
+    step1Next: 'அடுத்து: நீங்கள் தொகையை உள்ளிடுவீர்கள். இப்போது பணம் எதுவும் கழிக்கப்படாது.',
+    step2Title: 'தொகையை உள்ளிடவும்',
+    step2Desc: 'நீங்கள் அனுப்ப விரும்பும் ரூபாய் தொகையை உள்ளிடவும்.',
+    step2Next: 'அடுத்து: பெறுநரின் விவரங்களையும் பாதுகாப்பு எச்சரிக்கைகளையும் மதிப்பாய்வு செய்வீர்கள்.',
+    step3Title: 'கட்டணத்தை மதிப்பாய்வு செய்யவும்',
+    step3Desc: 'பெறுநரின் பெயர், எழுத்துகளில் உள்ள தொகை மற்றும் மீதமுள்ள இருப்பை சரிபார்க்கவும்.',
+    step3Next: 'அடுத்து: உங்கள் 4 இலக்க ரகசிய யுபிஐ பின்னை உள்ளிடுவீர்கள்.',
+    step4Title: 'ரகசிய யுபிஐ பின்னை உள்ளிடவும்',
+    step4Desc: 'பாதுகாப்பான விசைப்பலகையில் உங்கள் 4 இலக்க ரகசிய பின்னை உள்ளிடவும்.',
+    step4Next: 'அடுத்து: வங்கி கட்டணத்தை அங்கீகரித்து ஒலி சமிக்ஞையுடன் ரசீதை காண்பிக்கும்.',
   }
 };
 

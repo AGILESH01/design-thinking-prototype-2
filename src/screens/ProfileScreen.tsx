@@ -11,7 +11,8 @@ import {
   Sliders, 
   ShieldAlert, 
   Database, 
-  ScanFace 
+  ScanFace,
+  Mic 
 } from 'lucide-react';
 import type { Screen, SupportedLanguage, AppConfig } from '../types';
 import { t, SUPPORTED_LANGUAGES } from '../utils/translations';
@@ -51,6 +52,16 @@ export default function ProfileScreen({
     triggerHaptic(20);
     setConfig(prev => ({ ...prev, soundEnabled: next }));
     saveUserSettingsBackend({ soundEnabled: next });
+    if (next) sound.playKeyClick();
+  };
+
+  const toggleVoiceGuidance = () => {
+    const next = !config.voiceGuidanceEnabled;
+    triggerHaptic(20);
+    setConfig(prev => ({ ...prev, voiceGuidanceEnabled: next }));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('upi_proto_voice_guidance', String(next));
+    }
     if (next) sound.playKeyClick();
   };
 
@@ -216,6 +227,33 @@ export default function ProfileScreen({
               }`}
             >
               {config.soundEnabled ? 'Enabled' : 'Muted'}
+            </button>
+          </div>
+
+          {/* Spoken Voice Assistant & Step Guidance Setting */}
+          <div className="w-full flex items-center justify-between p-4 bg-white border-2 border-gray-200 rounded-2xl shadow-xs">
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-indigo-100 text-indigo-700">
+                <Mic size={22} />
+              </div>
+              <div>
+                <span className="text-base font-bold text-gray-900 block">
+                  {t(lang, 'autoNarrateToggle')}
+                </span>
+                <span className="text-xs font-semibold text-gray-500">
+                  {t(lang, 'autoNarrateDesc')}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={toggleVoiceGuidance}
+              className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-colors border ${
+                config.voiceGuidanceEnabled
+                  ? 'bg-indigo-600 text-white border-indigo-700'
+                  : 'bg-gray-200 text-gray-700 border-gray-300'
+              }`}
+            >
+              {config.voiceGuidanceEnabled ? 'Enabled' : 'Disabled'}
             </button>
           </div>
 

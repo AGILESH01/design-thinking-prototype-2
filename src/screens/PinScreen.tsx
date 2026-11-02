@@ -5,6 +5,7 @@ import { DEMO_PIN } from '../utils/formatters';
 import { t } from '../utils/translations';
 import { sound } from '../utils/sound';
 import { triggerHaptic } from '../utils/deviceSensors';
+import StepGuidanceCard from '../components/StepGuidanceCard';
 
 interface PinScreenProps {
   navigate: (screen: Screen) => void;
@@ -13,6 +14,8 @@ interface PinScreenProps {
   message: string;
   method: string;
   lang: SupportedLanguage;
+  autoNarrate?: boolean;
+  onToggleAutoNarrate?: (enabled: boolean) => void;
   onAuthorize: () => void;
 }
 
@@ -21,6 +24,8 @@ export default function PinScreen({
   contact,
   amount,
   lang,
+  autoNarrate,
+  onToggleAutoNarrate,
   onAuthorize,
 }: PinScreenProps) {
   const [pin, setPin] = useState('');
@@ -136,6 +141,17 @@ export default function PinScreen({
       </div>
 
       <div className="p-5 flex-1 flex flex-col items-center justify-between">
+        {/* Step 4 of 4 Senior Guidance & What Happens Next */}
+        <div className="w-full">
+          <StepGuidanceCard
+            stepNumber={4}
+            stepId="pin"
+            lang={lang}
+            autoNarrate={autoNarrate}
+            onToggleAutoNarrate={onToggleAutoNarrate}
+          />
+        </div>
+
         {/* Context Strip */}
         <div className="w-full bg-gray-50 border border-gray-200 rounded-3xl p-3.5 text-center mb-3 shadow-xs">
           <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">

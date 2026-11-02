@@ -71,6 +71,87 @@ export function stopCameraSensor(stream: MediaStream | null): void {
 /**
  * Acoustic Soundbox Voice Announcement (Speech Synthesis Sensor)
  */
+export type StepGuidanceId = 'recipient' | 'pay' | 'review' | 'pin';
+
+export const STEP_SPOKEN_GUIDANCE: Record<StepGuidanceId, Record<string, string>> = {
+  recipient: {
+    en: 'Step 1 of 4: Choose who to pay. Select a contact from your list or tap the camera button to scan a QR code. Do not worry, no money will be deducted at this step. Next, you will simply enter the amount.',
+    hi: 'कदम 1 का 4: चुनें कि आप किसे पैसे भेजना चाहते हैं। अपनी सूची से कोई संपर्क चुनें या क्यूआर कोड स्कैन करने के लिए कैमरा बटन दबाएं। चिंता न करें, इस कदम पर कोई पैसा नहीं कटेगा। अगले कदम में आप सिर्फ राशि दर्ज करेंगे।',
+    kn: 'ಹಂತ 1 ರ 4: ನೀವು ಯಾರಿಗೆ ಹಣ ಕಳುಹಿಸಲು ಬಯಸುತ್ತೀರಿ ಎಂಬುದನ್ನು ಆಯ್ಕೆಮಾಡಿ. ನಿಮ್ಮ ಪಟ್ಟಿಯಿಂದ ಸಂಪರ್ಕವನ್ನು ಆಯ್ಕೆಮಾಡಿ ಅಥವಾ ಕ್ಯೂಆರ್ ಕೋಡ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಕ್ಯಾಮೆರಾ ಬಟನ್ ಒತ್ತಿರಿ. ಚಿಂತಿಸಬೇಡಿ, ಈ ಹಂತದಲ್ಲಿ ಯಾವುದೇ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ. ಮುಂದಿನ ಹಂತದಲ್ಲಿ ನೀವು ಮೊತ್ತವನ್ನು ನಮೂದಿಸುವಿರಿ.',
+    ta: 'படி 1 இன் 4: நீங்கள் யாருக்கு பணம் அனுப்ப விரும்புகிறீர்கள் என்பதைத் தேர்ந்தெடுக்கவும். உங்கள் தொடர்பைத் தேர்ந்தெடுக்கவும் அல்லது QR குறியீட்டை ஸ்கேன் செய்ய கேமரா பொத்தானை அழுத்தவும். கவலைப்பட வேண்டாம், இந்த படியில் பணம் எதுவும் கழிக்கப்படாது. அடுத்த படியில் நீங்கள் தொகையை உள்ளிடுவீர்கள்.',
+  },
+  pay: {
+    en: 'Step 2 of 4: Enter amount. Type the rupees you wish to send. No money is deducted when you tap Continue. In the next step, you will carefully review the recipient details and safety checks.',
+    hi: 'कदम 2 का 4: राशि दर्ज करें। जितने रुपये आप भेजना चाहते हैं, वह राशि दर्ज करें। आगे बढ़ें दबाने पर कोई पैसा नहीं कटता है। अगले कदम में, आप प्राप्तकर्ता के नाम और सुरक्षा विवरण की सावधानीपूर्वक समीक्षा करेंगे।',
+    kn: 'ಹಂತ 2 ರ 4: ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ. ನೀವು ಕಳುಹಿಸಲು ಬಯಸುವ ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ. ಮುಂದುವರಿಯಿರಿ ಬಟನ್ ಒತ್ತಿದಾಗ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ. ಮುಂದಿನ ಹಂತದಲ್ಲಿ, ನೀವು ಸ್ವೀಕರಿಸುವವರ ಹೆಸರು ಮತ್ತು ಸುರಕ್ಷತಾ ವಿವರಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಪರಿಶೀಲಿಸುವಿರಿ.',
+    ta: 'படி 2 இன் 4: தொகையை உள்ளிடவும். நீங்கள் அனுப்ப விரும்பும் தொகையை உள்ளிடவும். தொடரவும் என்பதை அழுத்தினால் பணம் கழிக்கப்படாது. அடுத்த படியில், பெறுநரின் விவரங்களையும் பாதுகாப்பு எச்சரிக்கைகளையும் நீங்கள் கவனமாக மதிப்பாய்வு செய்வீர்கள்.',
+  },
+  review: {
+    en: 'Step 3 of 4: Review payment details. Please verify the recipient name and amount carefully. When you tap Proceed to Pay, you will go to the secure PIN screen where you enter your secret four-digit PIN. Your money stays safely in your bank until your PIN is verified.',
+    hi: 'कदम 3 का 4: भुगतान विवरण की समीक्षा करें। कृपया प्राप्तकर्ता का नाम और राशि ध्यान से देखें। भुगतान के लिए आगे बढ़ें दबाने पर, आप गुप्त पिन स्क्रीन पर जाएंगे। जब तक आप अपना गुप्त 4 अंकों का पिन नहीं डालते, आपका पैसा बैंक में सुरक्षित रहता है।',
+    kn: 'ಹಂತ 3 ರ 4: ಪಾವತಿ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. ದಯವಿಟ್ಟು ಸ್ವೀಕರಿಸುವವರ ಹೆಸರು ಮತ್ತು ಮೊತ್ತವನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಪರಿಶೀಲಿಸಿ. ಪಾವತಿಸಲು ಮುಂದುವರಿಯಿರಿ ಒತ್ತಿದಾಗ, ನೀವು ರಹಸ್ಯ ಯುಪಿಐ ಪಿನ್ ಪರದೆಗೆ ಹೋಗುವಿರಿ. ನಿಮ್ಮ ರಹಸ್ಯ ಪಿನ್ ನಮೂದಿಸುವವರೆಗೆ ನಿಮ್ಮ ಹಣ ಬ್ಯಾಂಕಿನಲ್ಲಿ ಸಂಪೂರ್ಣವಾಗಿ ಸುರಕ್ಷಿತವಾಗಿರುತ್ತದೆ.',
+    ta: 'படி 3 இன் 4: கட்டண விவரங்களை மதிப்பாய்வு செய்யவும். பெறுநரின் பெயரையும் தொகையையும் கவனமாக சரிபார்க்கவும். பணம் செலுத்த தொடரவும் அழுத்தினால், நீங்கள் ரகசிய பின் திரைக்குச் செல்வீர்கள். உங்கள் 4 இலக்க ரகசிய பின்னை உள்ளிடும் வரை உங்கள் பணம் வங்கியிலேயே பாதுகாப்பாக இருக்கும்.',
+  },
+  pin: {
+    en: 'Step 4 of 4: Enter secret UPI PIN. Enter your secret four-digit PIN on the secure keypad. For this demo, the PIN is 1 2 3 4. Once entered, your bank will authorize the payment, play a confirmation chime, and show your official receipt. Never share your PIN with anyone.',
+    hi: 'कदम 4 का 4: गुप्त यूपीआई पिन दर्ज करें। सुरक्षित कीपैड पर अपना 4 अंकों का गुप्त यूपीआई पिन दर्ज करें। इस डेमो के लिए पिन 1 2 3 4 है। पिन दर्ज करने के बाद, आपका बैंक भुगतान को पूरा करेगा, एक ध्वनि बजाएगा और रसीद दिखाएगा। अपना पिन किसी के साथ साझा न करें।',
+    kn: 'ಹಂತ 4 ರ 4: ರಹಸ್ಯ ಯುಪಿಐ ಪಿನ್ ನಮೂದಿಸಿ. ಕೀಪ್ಯಾಡ್‌ನಲ್ಲಿ ನಿಮ್ಮ 4 ಅಂಕಿಗಳ ರಹಸ್ಯ ಯುಪಿಐ ಪಿನ್ ನಮೂದಿಸಿ. ಈ ಡೆಮೊಗಾಗಿ ಪಿನ್ 1 2 3 4 ಆಗಿದೆ. ಸರಿಯಾದ ಪಿನ್ ನಮೂದಿಸಿದ ನಂತರ, ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಪಾವತಿಯನ್ನು ಪೂರ್ಣಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ರಶೀದಿಯನ್ನು ತೋರಿಸುತ್ತದೆ. ನಿಮ್ಮ ಪಿನ್ ಅನ್ನು ಯಾರೊಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.',
+    ta: 'படி 4 இன் 4: ரகசிய யுபிஐ பின்னை உள்ளிடவும். விசைப்பலகையில் உங்கள் 4 இலக்க ரகசிய யுபிஐ பின்னை உள்ளிடவும். இந்த டெமோவிற்கு பின் 1 2 3 4 ஆகும். சரியான பின்னை உள்ளிட்டதும், உங்கள் வங்கி கட்டணத்தை அங்கீகரித்து ரசீதை காண்பிக்கும். உங்கள் பின்னை யாருடனும் பகிர வேண்டாம்.',
+  },
+};
+
+export function stopSpeaking(): void {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch {
+      // Ignore
+    }
+  }
+}
+
+export function isSpeechActive(): boolean {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return false;
+  return window.speechSynthesis.speaking;
+}
+
+export function speakStepGuidance(
+  stepId: StepGuidanceId,
+  lang: string = 'en',
+  onStart?: () => void,
+  onEnd?: () => void
+): void {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+
+  try {
+    window.speechSynthesis.cancel();
+
+    const scripts = STEP_SPOKEN_GUIDANCE[stepId] || STEP_SPOKEN_GUIDANCE.recipient;
+    const text = scripts[lang] || scripts.en;
+
+    let speechLang = 'en-IN';
+    if (lang === 'hi') speechLang = 'hi-IN';
+    else if (lang === 'kn') speechLang = 'kn-IN';
+    else if (lang === 'ta') speechLang = 'ta-IN';
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.92; // Slightly slower, reassuring, clear cadence for senior citizens
+    utterance.pitch = 1.0;
+    utterance.lang = speechLang;
+
+    if (onStart) utterance.onstart = onStart;
+    if (onEnd) {
+      utterance.onend = onEnd;
+      utterance.onerror = onEnd;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.warn('Step guidance speech synthesis error:', err);
+    if (onEnd) onEnd();
+  }
+}
+
 export function speakPaymentSuccess(amount: number, recipientName: string, lang: string = 'en'): void {
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
