@@ -7,7 +7,7 @@ import {
 } from './src/utils/formatters.ts';
 import { translations, t, getCategoryTranslation, getStatusTranslation } from './src/utils/translations.ts';
 import { initialTransactions } from './src/data.ts';
-import { STEP_SPOKEN_GUIDANCE } from './src/utils/deviceSensors.ts';
+import { STEP_SPOKEN_GUIDANCE, QR_SPOKEN_SAFETY } from './src/utils/deviceSensors.ts';
 
 console.log('====================================================');
 console.log('  UPI PROTOTYPE V2: COMPREHENSIVE AUTOMATED TEST SUITE');
@@ -250,6 +250,21 @@ assert(translations.en.noDeductionGuarantee.includes('No money is deducted'), 'E
 assert(translations.hi.noDeductionGuarantee.includes('कोई पैसा नहीं'), 'Hindi guarantee explicitly promises zero deduction');
 assert(translations.kn.noDeductionGuarantee.includes('ಯಾವುದೇ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ'), 'Kannada guarantee explicitly promises zero deduction');
 assert(translations.ta.noDeductionGuarantee.includes('பணம் எதுவும் கழிக்கப்படாது'), 'Tamil guarantee explicitly promises zero deduction');
+
+// ---------------------------------------------------------
+console.log('\n--- 8. Testing Mobile Device Vendor QR Scanner & Fraud Awareness Audio ---');
+for (const lang of requiredLangs) {
+  assert(Boolean(QR_SPOKEN_SAFETY[lang] && QR_SPOKEN_SAFETY[lang].length > 40), `QR fraud awareness speech exists for '${lang}'`);
+  assert(Boolean(translations[lang].scanQrTitle), `scanQrTitle translated for '${lang}'`);
+  assert(Boolean(translations[lang].scanQrSafetyWarning), `scanQrSafetyWarning translated for '${lang}'`);
+  assert(Boolean(translations[lang].vendorDetected), `vendorDetected translated for '${lang}'`);
+  assert(Boolean(translations[lang].scanShopButton), `scanShopButton translated for '${lang}'`);
+}
+
+assert(QR_SPOKEN_SAFETY.en.includes('ONLY used to SEND money'), 'English audio explicitly warns QR is ONLY to SEND money');
+assert(QR_SPOKEN_SAFETY.hi.includes('केवल दुकान पर पैसे भेजने'), 'Hindi audio explicitly warns QR is only to send money');
+assert(QR_SPOKEN_SAFETY.kn.includes('ಹಣ ಕಳುಹಿಸಲು ಮಾತ್ರ'), 'Kannada audio explicitly warns QR is only to send money');
+assert(QR_SPOKEN_SAFETY.ta.includes('பணம் செலுத்த மட்டுமே'), 'Tamil audio explicitly warns QR is only to pay');
 
 console.log('\n====================================================');
 console.log(`TEST SUMMARY: ${passed} passed, ${failed} failed.`);

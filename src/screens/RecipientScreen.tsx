@@ -5,7 +5,7 @@ import { mockContacts } from '../data';
 import { t } from '../utils/translations';
 import { sound } from '../utils/sound';
 import { triggerHaptic } from '../utils/deviceSensors';
-import CameraSensorModal from '../components/CameraSensorModal';
+import VendorQRScannerModal from '../components/VendorQRScannerModal';
 import StepGuidanceCard from '../components/StepGuidanceCard';
 
 interface RecipientScreenProps {
@@ -133,14 +133,16 @@ export default function RecipientScreen({
         </div>
       </div>
 
-      {/* Hardware Camera Sensor Modal */}
-      <CameraSensorModal
+      {/* Hardware Vendor QR Camera Scanner Modal with Voice Guidance & Safety Awareness */}
+      <VendorQRScannerModal
         isOpen={isCameraScannerOpen}
         onClose={() => setIsCameraScannerOpen(false)}
         onScanSuccess={(contact) => {
           setIsCameraScannerOpen(false);
           onSelect(contact);
         }}
+        lang={lang}
+        autoNarrate={autoNarrate}
       />
     </div>
   );

@@ -18,7 +18,9 @@ import {
   Volume2, 
   VolumeX, 
   Lock,
-  Mic
+  Mic,
+  QrCode,
+  ArrowRight
 } from 'lucide-react';
 import type { Screen, Contact, SupportedLanguage, Transaction } from '../types';
 import { mockContacts } from '../data';
@@ -26,6 +28,7 @@ import { t } from '../utils/translations';
 import { sound } from '../utils/sound';
 import { triggerHaptic } from '../utils/deviceSensors';
 import BiometricBalanceModal from '../components/BiometricBalanceModal';
+import VendorQRScannerModal from '../components/VendorQRScannerModal';
 
 interface HomeScreenProps {
   navigate: (screen: Screen) => void;
@@ -55,6 +58,7 @@ export default function HomeScreen({
   setVoiceGuidanceEnabled,
 }: HomeScreenProps) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isQRScannerOpen, setIsQRScannerOpen] = useState(false);
 
   // Auto-hide balance timer (30 seconds viewing session for privacy protection)
   useEffect(() => {
@@ -271,6 +275,41 @@ export default function HomeScreen({
 
       <div className="px-5 mt-5 space-y-5">
         
+        {/* Important Feature: Scan Vendor Shop QR Code with Device Camera */}
+        <button
+          onClick={() => {
+            sound.playKeyClick();
+            triggerHaptic(30);
+            setIsQRScannerOpen(true);
+          }}
+          className="w-full text-left bg-gradient-to-r from-emerald-600 via-teal-600 to-green-700 text-white rounded-3xl p-4 shadow-md flex items-center justify-between hover:shadow-lg transition-all active:scale-[0.99] border-2 border-emerald-400/40"
+        >
+          <div className="flex items-center gap-3.5">
+            <div className="w-13 h-13 bg-white/20 backdrop-blur-xs rounded-2xl flex items-center justify-center text-white flex-shrink-0 shadow-inner">
+              <QrCode size={30} />
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-black text-emerald-200 uppercase tracking-wider block">
+                  {t(lang, 'scanShopButton')}
+                </span>
+                <span className="bg-emerald-950/60 text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-emerald-400/40">
+                  CAMERA SCAN
+                </span>
+              </div>
+              <p className="text-base font-black text-white mt-0.5 leading-snug">
+                {t(lang, 'scanQrTitle')}
+              </p>
+              <p className="text-xs text-emerald-100 font-semibold mt-0.5">
+                {t(lang, 'scanQrDesc')}
+              </p>
+            </div>
+          </div>
+          <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0">
+            <ArrowRight size={20} strokeWidth={2.5} />
+          </div>
+        </button>
+
         {/* Feature 5: Prominent Monthly Expense & Analytics Card */}
         <button
           onClick={() => navigate('monthly')}
@@ -360,6 +399,18 @@ export default function HomeScreen({
         lang={lang}
         onSuccess={handleAuthSuccess}
         onClose={() => setIsAuthModalOpen(false)}
+      />
+
+      {/* Vendor QR Scanner Modal with Camera Sensor, Voice Step-by-Step & Safety Awareness */}
+      <VendorQRScannerModal
+        isOpen={isQRScannerOpen}
+        onClose={() => setIsQRScannerOpen(false)}
+        onScanSuccess={(vendor) => {
+          setIsQRScannerOpen(false);
+          onQuickPay(vendor);
+        }}
+        lang={lang}
+        autoNarrate={voiceGuidanceEnabled}
       />
     </div>
   );

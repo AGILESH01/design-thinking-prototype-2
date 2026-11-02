@@ -263,6 +263,19 @@ export interface TranslationDictionary {
   step4Title: string;
   step4Desc: string;
   step4Next: string;
+
+  // Vendor QR Scanner & Fraud Awareness
+  scanQrTitle: string;
+  scanQrDesc: string;
+  scanQrSafetyWarning: string;
+  scanQrNextNotice: string;
+  popularVendorsTitle: string;
+  vendorDetected: string;
+  torchOn: string;
+  torchOff: string;
+  flipCamera: string;
+  proceedToPayVendor: string;
+  scanShopButton: string;
 }
 
 export const translations: Record<SupportedLanguage, TranslationDictionary> = {
@@ -498,6 +511,19 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     step4Title: 'Enter Secret PIN',
     step4Desc: 'Enter your 4-digit secret UPI PIN on the secure numeric keypad.',
     step4Next: 'Next: Bank authorizes payment and shows official receipt with audio chime.',
+
+    // Vendor QR Scanner & Fraud Awareness
+    scanQrTitle: 'Scan Shop QR Code',
+    scanQrDesc: 'Point camera at the vendor\'s QR code on the shop counter',
+    scanQrSafetyWarning: 'Safety Alert: QR codes are ONLY used to SEND money. You NEVER need to scan a QR code or enter your secret PIN to receive money or lottery prizes.',
+    scanQrNextNotice: 'Next: You will enter the amount. No money is deducted by scanning a QR code.',
+    popularVendorsTitle: 'Or Tap a Verified Shop Vendor',
+    vendorDetected: 'Vendor Verified',
+    torchOn: 'Flashlight ON',
+    torchOff: 'Flashlight OFF',
+    flipCamera: 'Switch Camera',
+    proceedToPayVendor: 'Proceed to Enter Amount',
+    scanShopButton: 'Scan Shop QR Code',
   },
 
   hi: {
@@ -732,6 +758,19 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     step4Title: 'गुप्त यूपीआई पिन दर्ज करें',
     step4Desc: 'सुरक्षित कीपैड पर अपना 4 अंकों का गुप्त पिन दर्ज करें।',
     step4Next: 'आगे: बैंक भुगतान को पूरा करेगा और ध्वनि के साथ रसीद दिखाएगा।',
+
+    // Vendor QR Scanner & Fraud Awareness
+    scanQrTitle: 'दुकान का क्यूआर कोड स्कैन करें',
+    scanQrDesc: 'कैमरे को काउंटर पर रखे दुकानदार के क्यूआर कोड के सामने रखें',
+    scanQrSafetyWarning: 'सुरक्षा नियम: क्यूआर कोड केवल पैसे भेजने के लिए होता है। पैसे या पेंशन पाने के लिए कभी भी क्यूआर कोड स्कैन न करें और पिन न डालें।',
+    scanQrNextNotice: 'आगे: आप भुगतान राशि दर्ज करेंगे। क्यूआर स्कैन करने पर कोई पैसा नहीं कटता।',
+    popularVendorsTitle: 'या सत्यापित दुकान चुनें',
+    vendorDetected: 'दुकानदार सत्यापित',
+    torchOn: 'टॉर्च चालू',
+    torchOff: 'टॉर्च बंद',
+    flipCamera: 'कैमरा बदलें',
+    proceedToPayVendor: 'राशि दर्ज करने के लिए आगे बढ़ें',
+    scanShopButton: 'दुकान का क्यूआर स्कैन करें',
   },
 
   kn: {
@@ -966,6 +1005,19 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     step4Title: 'ರಹಸ್ಯ ಯುಪಿಐ ಪಿನ್ ನಮೂದಿಸಿ',
     step4Desc: 'ಸುರಕ್ಷಿತ ಕೀಪ್ಯಾಡ್‌ನಲ್ಲಿ ನಿಮ್ಮ 4-ಅಂಕಿಯ ರಹಸ್ಯ ಪಿನ್ ನಮೂದಿಸಿ.',
     step4Next: 'ಮುಂದೆ: ಬ್ಯಾಂಕ್ ಪಾವತಿಯನ್ನು ಪೂರ್ಣಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ಧ್ವನಿ ಸಹಿತ ರಶೀದಿಯನ್ನು ತೋರಿಸುತ್ತದೆ.',
+
+    // Vendor QR Scanner & Fraud Awareness
+    scanQrTitle: 'ಅಂಗಡಿಯ ಕ್ಯೂಆರ್ ಕೋಡ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ',
+    scanQrDesc: 'ಅಂಗಡಿಯ ಕೌಂಟರ್‌ನಲ್ಲಿರುವ ಕ್ಯೂಆರ್ ಕೋಡ್‌ನ ಮುಂದೆ ಕ್ಯಾಮೆರಾ ಹಿಡಿಯಿರಿ',
+    scanQrSafetyWarning: 'ಸುರಕ್ಷತಾ ಎಚ್ಚರಿಕೆ: ಕ್ಯೂಆರ್ ಕೋಡ್ ಅಂಗಡಿಗೆ ಹಣ ಕಳುಹಿಸಲು ಮಾತ್ರ. ಹಣ ಅಥವಾ ಪಿಂಚಣಿ ಪಡೆಯಲು ಎಂದಿಗೂ ಸ್ಕ್ಯಾನ್ ಮಾಡಬೇಡಿ ಮತ್ತು ಪಿನ್ ನಮೂದಿಸಬೇಡಿ.',
+    scanQrNextNotice: 'ಮುಂದೆ: ನೀವು ಪಾವತಿ ಮೊತ್ತವನ್ನು ನಮೂದಿಸುವಿರಿ. ಕ್ಯೂಆರ್ ಸ್ಕ್ಯಾನ್ ಮಾಡುವುದರಿಂದ ಯಾವುದೇ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ.',
+    popularVendorsTitle: 'ಅಥವಾ ದೃಢೀಕೃತ ಅಂಗಡಿ ಆರಿಸಿ',
+    vendorDetected: 'ಅಂಗಡಿ ದೃಢೀಕರಿಸಲಾಗಿದೆ',
+    torchOn: 'ಟಾರ್ಚ್ ಚಾಲ್ತಿ',
+    torchOff: 'ಟಾರ್ಚ್ ಆಫ್',
+    flipCamera: 'ಕ್ಯಾಮೆರಾ ಬದಲಾಯಿಸಿ',
+    proceedToPayVendor: 'ಮೊತ್ತ ನಮೂದಿಸಲು ಮುಂದುವರಿಯಿರಿ',
+    scanShopButton: 'ಅಂಗಡಿ ಕ್ಯೂಆರ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ',
   },
 
   ta: {
@@ -1200,6 +1252,19 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     step4Title: 'ரகசிய யுபிஐ பின்னை உள்ளிடவும்',
     step4Desc: 'பாதுகாப்பான விசைப்பலகையில் உங்கள் 4 இலக்க ரகசிய பின்னை உள்ளிடவும்.',
     step4Next: 'அடுத்து: வங்கி கட்டணத்தை அங்கீகரித்து ஒலி சமிக்ஞையுடன் ரசீதை காண்பிக்கும்.',
+
+    // Vendor QR Scanner & Fraud Awareness
+    scanQrTitle: 'கடையின் QR குறியீட்டை ஸ்கேன் செய்க',
+    scanQrDesc: 'கடையின் கவுண்டரில் உள்ள QR குறியீட்டை நோக்கி கேமராவைப் பிடிக்கவும்',
+    scanQrSafetyWarning: 'பாதுகாப்பு எச்சரிக்கை: QR குறியீடு பணம் செலுத்த மட்டுமே. பணம் அல்லது பரிசுகளைப் பெற ஒருபோதும் QR-ஐ ஸ்கேன் செய்யவோ பின்னை உள்ளிடவோ வேண்டாம்.',
+    scanQrNextNotice: 'அடுத்து: கட்டணத் தொகையை உள்ளிடுவீர்கள். QR ஸ்கேன் செய்வதால் பணம் எதுவும் கழிக்கப்படாது.',
+    popularVendorsTitle: 'அல்லது சரிபார்க்கப்பட்ட கடையைத் தேர்வுசெய்க',
+    vendorDetected: 'கடை சரிபார்க்கப்பட்டது',
+    torchOn: 'ஒளிரும் விளக்கு ஆன்',
+    torchOff: 'ஒளிரும் விளக்கு ஆஃப்',
+    flipCamera: 'கேமராவை மாற்றுக',
+    proceedToPayVendor: 'தொகையை உள்ளிட தொடரவும்',
+    scanShopButton: 'கடை QR ஸ்கேன் செய்க',
   }
 };
 

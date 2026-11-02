@@ -152,6 +152,81 @@ export function speakStepGuidance(
   }
 }
 
+export const QR_SPOKEN_SAFETY: Record<string, string> = {
+  en: "Point your camera at the vendor's shop QR code. Important safety notice: Scanning a QR code is ONLY used to SEND money to a shop. You NEVER need to scan a QR code or enter your secret PIN to receive money or lottery prizes. If someone asks you to scan a QR to receive money, it is a scam.",
+  hi: 'अपने कैमरे को दुकान के क्यूआर कोड के सामने रखें। महत्वपूर्ण सुरक्षा नियम: क्यूआर कोड केवल दुकान पर पैसे भेजने के लिए होता है। पैसे या पेंशन पाने के लिए कभी भी क्यूआर कोड स्कैन न करें और अपना गुप्त पिन न डालें। यदि कोई पैसे पाने के लिए क्यूआर स्कैन करने को कहे, तो यह धोखा है।',
+  kn: 'ನಿಮ್ಮ ಕ್ಯಾಮೆರಾವನ್ನು ಅಂಗಡಿಯ ಕ್ಯೂಆರ್ ಕೋಡ್‌ನ ಮುಂದೆ ಹಿಡಿಯಿರಿ. ಪ್ರಮುಖ ಸುರಕ್ಷತಾ ನಿಯಮ: ಅಂಗಡಿಗೆ ಹಣ ಕಳುಹಿಸಲು ಮಾತ್ರ ಕ್ಯೂಆರ್ ಕೋಡ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾಗುತ್ತದೆ. ಹಣ ಅಥವಾ ಪಿಂಚಣಿ ಪಡೆಯಲು ನೀವು ಎಂದಿಗೂ ಕ್ಯೂಆರ್ ಕೋಡ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಬೇಕಾಗಿಲ್ಲ ಅಥವಾ ರಹಸ್ಯ ಪಿನ್ ನಮೂದಿಸಬೇಕಾಗಿಲ್ಲ. ಯಾರಾದರೂ ಹಣ ಪಡೆಯಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಹೇಳಿದರೆ, ಅದು ವಂಚನೆಯಾಗಿದೆ.',
+  ta: 'உங்கள் கேமராவை கடையின் QR குறியீட்டிற்கு முன்னால் பிடிக்கவும். முக்கியமான பாதுகாப்பு விதி: கடைக்கு பணம் செலுத்த மட்டுமே QR குறியீடு ஸ்கேன் செய்யப்படுகிறது. பணம் அல்லது பரிசுகளைப் பெற நீங்கள் ஒருபோதும் QR குறியீட்டை ஸ்கேன் செய்யவோ அல்லது ரகசிய பின்னை உள்ளிடவோ தேவையில்லை. யாராவது பணம் பெற ஸ்கேன் செய்யச் சொன்னால், அது மோசடி.',
+};
+
+export function speakQRSafetyNotice(
+  lang: string = 'en',
+  onStart?: () => void,
+  onEnd?: () => void
+): void {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const text = QR_SPOKEN_SAFETY[lang] || QR_SPOKEN_SAFETY.en;
+    let speechLang = 'en-IN';
+    if (lang === 'hi') speechLang = 'hi-IN';
+    else if (lang === 'kn') speechLang = 'kn-IN';
+    else if (lang === 'ta') speechLang = 'ta-IN';
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.92;
+    utterance.pitch = 1.0;
+    utterance.lang = speechLang;
+    if (onStart) utterance.onstart = onStart;
+    if (onEnd) {
+      utterance.onend = onEnd;
+      utterance.onerror = onEnd;
+    }
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.warn('QR safety speech error:', err);
+    if (onEnd) onEnd();
+  }
+}
+
+export function speakQRVendorVerified(
+  vendorName: string,
+  lang: string = 'en',
+  onStart?: () => void,
+  onEnd?: () => void
+): void {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    let text = `Vendor verified: ${vendorName}. Please check that this matches the shop board. Tap Continue to enter amount. No money is deducted yet.`;
+    let speechLang = 'en-IN';
+    if (lang === 'hi') {
+      text = `दुकानदार सत्यापित: ${vendorName}। कृपया जांचें कि यह नाम दुकान के बोर्ड से मेल खाता है। राशि दर्ज करने के लिए आगे बढ़ें। अभी कोई पैसा नहीं कटेगा।`;
+      speechLang = 'hi-IN';
+    } else if (lang === 'kn') {
+      text = `ಅಂಗಡಿ ದೃಢೀಕರಿಸಲಾಗಿದೆ: ${vendorName}. ದಯವಿಟ್ಟು ಈ ಹೆಸರು ಅಂಗಡಿಯ ಬೋರ್ಡ್‌ಗೆ ಹೊಂದಿಕೆಯಾಗುತ್ತದೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ. ಮೊತ್ತ ನಮೂದಿಸಲು ಮುಂದುವರಿಯಿರಿ. ಇನ್ನೂ ಯಾವುದೇ ಹಣ ಕಡಿತವಾಗುವುದಿಲ್ಲ.`;
+      speechLang = 'kn-IN';
+    } else if (lang === 'ta') {
+      text = `கடை சரிபார்க்கப்பட்டது: ${vendorName}. இந்த பெயர் கடையின் பெயருடன் பொருந்துகிறதா என்பதை சரிபார்க்கவும். தொகையை உள்ளிட தொடரவும். இப்போது பணம் எதுவும் கழிக்கப்படாது.`;
+      speechLang = 'ta-IN';
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.92;
+    utterance.pitch = 1.0;
+    utterance.lang = speechLang;
+    if (onStart) utterance.onstart = onStart;
+    if (onEnd) {
+      utterance.onend = onEnd;
+      utterance.onerror = onEnd;
+    }
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.warn('Vendor verified speech error:', err);
+    if (onEnd) onEnd();
+  }
+}
+
 export function speakPaymentSuccess(amount: number, recipientName: string, lang: string = 'en'): void {
   if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
